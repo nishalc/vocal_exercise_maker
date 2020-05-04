@@ -88,7 +88,7 @@ class VocalExercise():
             durations = [1 for i in pattern]
         else:
             if duration_multiplier != 1:
-                durations = [i * duration_multiplier for i in durations]
+                durations = [float(i) * duration_multiplier for i in durations]
 
         # check maximum note duration in selected durations
         self.beat_duration = ((60 / tempo) * 1000)
@@ -117,8 +117,8 @@ class VocalExercise():
             exercise += (self.chords[i][:self.beat_duration] * cbin)
             if x == 0: # so that no weird pause for tracks without chords
                 exercise += (self.silence[:self.beat_duration] * cbin)
-            else:
-                exercise += (self.silence[:self.beat_duration])
+            elif cbin == 0:
+                exercise += (self.silence[:self.beat_duration] * self.bin_d['pause_bin'])
 
             for j, duration in zip(sequence, self.durations_ms):
                 exercise += self.notes[j][:duration]
