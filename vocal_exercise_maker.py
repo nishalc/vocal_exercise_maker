@@ -43,10 +43,15 @@ def note_chord_paths(note_folder, chord_folder, start_note, end_note):
 # take the total number of notes you have and a pattern and returns index values in list of lists.
 # Each inner list is a sequence of notes
 def pattern_to_lists(length, pattern, reverse_bin, ascend_bin, scale_type, note_steps):
-    #translate number in a scale to number out of the 12 notes in each octave (including octave before and after)
-    scale_dict = {'M': {-7: -14, -6: -12 ,-5: -10 ,-4: -8,-3: -7, -2: -5 , -1: -3, 0: -1, 1: 0, 2: 2, 3: 4, 4: 5, 5: 7,
-                        6: 9, 7: 11, 8: 12, 9: 14, 10: 16, 11: 17, 12: 19, 13: 21, 14: 23, 15: 24},
-                  'P': {1: 0, 2: 2, 3: 4, 4: 7, 5: 9}}
+    #translate number in a scale to semitone number
+    scale_dict = {'Major': {-7: -14, -6: -12 ,-5: -10 ,-4: -8,-3: -7, -2: -5 , -1: -3, 0: -1, 1: 0, 2: 2, 3: 4, 4: 5, 5: 7,
+                        6: 9, 7: 11, 8: 12, 9: 14, 10: 16, 11: 17, 12: 19, 13: 21, 14: 23, 15: 24, 16:26, 17:28, 18:29,
+                            19:31, 20:33, 21:35, 22:36},
+                  'minor': {-6: -12, -5: -10, -4: -7, -3: -7, -2: -5, -1: -4, 0: -2, 1: 0, 2: 2, 3: 3, 4: 5,
+                            5: 7, 6: 8, 7: 10, 8: 12, 9: 14, 10: 15, 11: 17, 12: 19, 13: 20, 14: 22, 15: 24,
+                            16:26, 17:27, 18:29, 19:31, 20:32, 21:34, 22:36},
+                  'Pentatonic': {-5:-14, -4:-12 ,-3:-10, -2:-8 ,-1:-5 ,0: -3,1: 0, 2: 2, 3: 4, 4: 7, 5: 9, 6: 12,
+                                 7:14, 8:16, 9:19, 10:21, 11:24}}
     pattern = [scale_dict[scale_type][int(i)] for i in pattern] #
     chord_ints =  [j for j in range(length)][::note_steps]
 
@@ -89,7 +94,7 @@ class VocalExercise():
 
         # check if durations string provided is sufficient, use default if not
         if len(durations) != len(pattern):
-            durations = [1 for i in pattern]
+            durations = [1 * duration_multiplier for i in pattern]
         else:
             if duration_multiplier != 1:
                 durations = [float(i) * duration_multiplier for i in durations]
@@ -117,12 +122,11 @@ class VocalExercise():
         exercise = self.click[:self.beat_duration] * 4  # start track with 4 clicks
         cbin = self.bin_d['chords_bin']
         x = 0
+
         for i, sequence in zip(self.chord_ints, self.patterns):
             exercise += (self.chords[i][:self.beat_duration] * cbin)
-            if x == 0: # so that no weird pause for tracks without chords
+            if x == 0: # so that no weird pause for tracks without chords on the first pass only
                 exercise += (self.silence[:self.beat_duration] * cbin)
-            #elif cbin == 0:
-             #   exercise += (self.silence[:self.beat_duration] * self.bin_d['pause_bin'])
             else:
                 exercise += (self.silence[:self.beat_duration] * cbin)
                 if cbin == 0:
@@ -199,7 +203,7 @@ def update_window(window, values):
 
 #Inputs for dropdown menus etc
 sg.theme('DarkBlue1')
-scales = ('Major')
+scales = ('Major', 'Pentatonic', 'minor')
 notes = ('A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#')
 octaves = (2,3,4,5)
 scale_pats = ('1,2,3,2,1', '1,2,3,4,5,4,3,2,1', '5,4,3,2,1', '1,3,5,8,5,3,1', '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1')
@@ -234,7 +238,7 @@ controls = [[sg.Input(visible =False, enable_events = True, key = 'import'),
             [sg.Button('Export .wav\n& .json', size=(6,3)), sg.Button('Play', size=(6,3), key='play_stop')]]
 
 # Title texts
-intro_text = [sg.Text('Welcome, hope this program is handy. ')]
+intro_text = [sg.Text('')]
 tit_main = [sg.Text('1. Main input                                                       '
                     '', font=('Helvetica', 16, 'bold', 'underline'), text_color='darkgrey')]
 tit_extra = [sg.Text('2. Extra Options                                                 '
@@ -242,54 +246,57 @@ tit_extra = [sg.Text('2. Extra Options                                          
 tit_controls = [sg.Text('3. Controls                                                          '
                         '', font=('Helvetica', 16, 'bold', 'underline'), text_color='darkgrey')]
 
-# Main layout
-form = sg.FlexForm('My first GUI', auto_size_text=True)
 
-column1 = sg.Col([intro_text, tit_main, lowest, highest, pattern, pattern2, durations, tempo,
-                  [sg.Text('', font=('Helvetica', 6))],
-           tit_extra, extras, extras2, [sg.Text('', font=('Helvetica', 6))], tit_controls, [sg.Column(controls)
-                      , sg.Column([[sg.Output(size=(42,7))]])],])
+def main():
+    # Main layout
+    column1 = sg.Col([intro_text, tit_main, lowest, highest, pattern, pattern2, durations, tempo,
+                      [sg.Text('', font=('Helvetica', 6))],
+                      tit_extra, extras2, extras, [sg.Text('', font=('Helvetica', 6))], tit_controls,
+                      [sg.Column(controls)
+                          , sg.Column([[sg.Output(size=(42, 7))]])], ])
 
-layout = [[column1]]
+    form = sg.FlexForm('My first GUI', auto_size_text=True)
+    layout = [[column1]]
+    window = sg.Window('Vocal Exercise Maker v1.0', layout)
 
-window = sg.Window('Vocal Exercise Maker v1.0', layout)
+    playing = 0
+    while True:
+        event, values = window.read()
 
-playing = 0
-while True:
-    event, values = window.read()
-
-    if event == 'import':
-        filename = values['import_path']
-        with open(filename, 'r') as f:
-           nvalues = json.load(f)
-        update_window(window, nvalues)
-        print('Import successful')
-    elif event == 'Export\n.json':
-        my_ex, filename = intialize_exercise(values)
-        with open(filename+'.json', 'w') as fp:
-            json.dump(values, fp)
-        print('Exported ' + filename + '.json')
-    elif event == 'Export .wav\n& .json':
-        my_ex, filename = intialize_exercise(values)
-        my_ex.export()
-        with open(filename+'.json', 'w') as fp:
-            json.dump(values, fp)
-        print('Exported ' + filename + '.json and .wav')
-    elif event == 'play_stop':
-        if playing == 0:
+        if event == 'import':
+            filename = values['import_path']
+            with open(filename, 'r') as f:
+               nvalues = json.load(f)
+            update_window(window, nvalues)
+            print('Import successful')
+        elif event == 'Export\n.json':
             my_ex, filename = intialize_exercise(values)
-            my_ex.play_track()
-            playing = 1
-            window['play_stop'].update('Stop')
-        else:
-            if playing == 1:
-                my_ex.stop_track()
-                window['play_stop'].update('Play')
-                playing = 0
+            with open(filename+'.json', 'w') as fp:
+                json.dump(values, fp)
+            print('Exported ' + filename + '.json')
+        elif event == 'Export .wav\n& .json':
+            my_ex, filename = intialize_exercise(values)
+            my_ex.export()
+            with open(filename+'.json', 'w') as fp:
+                json.dump(values, fp)
+            print('Exported ' + filename + '.json and .wav')
+        elif event == 'play_stop':
+            if playing == 0:
+                my_ex, filename = intialize_exercise(values)
+                my_ex.play_track()
+                playing = 1
+                window['play_stop'].update('Stop')
             else:
-                print('No file is playing m8')
-    elif event in (None, 'Close'):
-        break
+                if playing == 1:
+                    my_ex.stop_track()
+                    window['play_stop'].update('Play')
+                    playing = 0
+                else:
+                    print('No file is playing m8')
+        elif event in (None, 'Close'):
+            break
 
-window.close()
+    window.close()
+
+
 
