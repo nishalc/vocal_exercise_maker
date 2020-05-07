@@ -1,9 +1,9 @@
 # vocal_exercise_generator
-python program to generate vocal exercises
-
-I made this program for myself but hope it is useful to anyone looking to make vocal exericses. Drop me a line on reddit (u/nnnishal) or youtube if you have any queries. 
+I made this program for myself but hope it is useful to anyone looking to make vocal exericses. Drop me a line on reddit (u/nnnishal) or I guess comment on the github if you have queries or find issues!
 
 Please checkout the video at .... for a walkthrough and demo.
+
+You can run the program using the .exe or the script 'X' if you prefer. 
 
 STEP BY STEP INSTRUCTIONS
 1. Select your note range, these will the highest and lowest notes that appear in the track - not necessarily the starting and end notes
