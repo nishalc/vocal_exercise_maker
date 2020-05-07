@@ -1,5 +1,5 @@
 from vocal_exercise_maker import *
-#This file is used for debugging and general experimentation (without the gui getting in the way)
+#This file is used for debugging and general experimentation (without the gui getting in the way
 
 note_folder = 'Notes'
 chord_folder = 'Chords'
