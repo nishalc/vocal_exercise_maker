@@ -14,4 +14,7 @@ STEP BY STEP INSTRUCTIONS
 - Pause between is adding an extra pause between each pattern, useful if you have disabled the chords in track. 
 5. Controls : you can export the parameters using Export .json, this can then be read by the program to preselect all your parameters. Use play to test your exercise and make sure you are happy! Export .wav and .json will produce both the audio file and a parameter file. 
 
+THINGS TO NOTE
+1. The notes are limited to 8 seconds, so any single note within a pattern cannot be longer than this (just repeat it if you really want it).
+2. You can go BACKWARDS and into the next octave on a scale pattern. Eg 0 will be a step down from 1, 9 is the 2nd on the octave above.
 
