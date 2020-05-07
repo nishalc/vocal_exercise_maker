@@ -217,16 +217,17 @@ highest = [sg.Text('Highest note:'), sg.Drop(notes, default_value='C', size=(3,1
           sg.Text('Octave:'), sg.Drop(octaves, size=(3,5), key='end_octave', default_value=4)]
 tempo = [sg.Text('Tempo (bpm):  '), sg.Input(70, size=(5,5), key='tempo')
     , sg.Text(' '*8+'Filename:'), sg.Input('', size=(20,5), key='filename')]
-pattern = [sg.Text('Scale pattern:  '), sg.Drop(scale_pats, size=(37,12), key='preset_pat',
-                                                        default_value='1,2,3,2,1'),
-            sg.Radio('Preset','radio1', default=True, key='preset_pat_bin')]
-pattern2 = [sg.Text(' '*22), sg.InputText(size=(39,20), key='custom_pat'),
-            sg.Radio('Custom', 'radio1', key='custom_pat_bin')]
+pattern = [sg.Text('Scale pattern:  '), sg.Radio('Preset  ','radio1', default=True, key='preset_pat_bin'),
+           sg.Drop(scale_pats, size=(37,12), key='preset_pat', default_value='1,2,3,2,1'),
+            ]
+pattern2 = [ sg.Text(' '*22), sg.Radio('Custom', 'radio1', key='custom_pat_bin'),
+             sg.InputText(size=(39,20), key='custom_pat'),
+            ]
 
 durations = [sg.Text('Note durations:'), sg.InputText('1,1,1' ,size=(34,12), key='durations'),
              sg.Text('Mulitplier:'), sg.Input('1', key='duration_multiplier', size=(4,3))]
 
-extras = [sg.Checkbox('Click track', default=True, key='click_track'), sg.Checkbox('Chords in track',
+extras = [sg.Checkbox('Click track', default=True, key='click_track'), sg.Checkbox('Chords',
                                                                                    key='chords_bin', default=True)
     , sg.Checkbox('Repeat and reverse', key='reverse_bin'), sg.Checkbox('Pause between', key='pause_bin')]
 extras2 =  [sg.Text('Note increment:'), sg.Input(1, size=(3,3), key='note_steps'), sg.Text(' '*6+'Note Order:')
@@ -238,7 +239,6 @@ controls = [[sg.Input(visible =False, enable_events = True, key = 'import'),
             [sg.Button('Export .wav\n& .json', size=(6,3)), sg.Button('Play', size=(6,3), key='play_stop')]]
 
 # Title texts
-intro_text = [sg.Text('')]
 tit_main = [sg.Text('1. Main input                                                       '
                     '', font=('Helvetica', 16, 'bold', 'underline'), text_color='darkgrey')]
 tit_extra = [sg.Text('2. Extra Options                                                 '
@@ -249,7 +249,7 @@ tit_controls = [sg.Text('3. Controls                                            
 
 def main():
     # Main layout
-    column1 = sg.Col([intro_text, tit_main, lowest, highest, pattern, pattern2, durations, tempo,
+    column1 = sg.Col([tit_main, lowest, highest, pattern, pattern2, durations, tempo,
                       [sg.Text('', font=('Helvetica', 6))],
                       tit_extra, extras2, extras, [sg.Text('', font=('Helvetica', 6))], tit_controls,
                       [sg.Column(controls)
@@ -298,5 +298,5 @@ def main():
 
     window.close()
 
-
+main()
 
