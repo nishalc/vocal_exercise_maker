@@ -11,7 +11,7 @@ import simpleaudio as sa
 def note_to_number(note):
     pitch = note[0]
     octave = note[1]
-    add_on = (octave - 2) * 12
+    add_on = (int(octave) - 2) * 12
     notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
     return notes.index(pitch) + add_on  # returns the 0 indexed number!
 
@@ -89,8 +89,8 @@ class VocalExercise():
         note_paths, chord_paths = note_chord_paths(note_folder, chord_folder, start_note_tup, end_note_tup)
         self.notes = [pydub.AudioSegment.from_wav(i) for i in note_paths]
         self.chords = [pydub.AudioSegment.from_wav(j) for j in chord_paths]
-        self.silence = pydub.AudioSegment.from_wav("silence.wav")
-        self.click = pydub.AudioSegment.from_wav("click.wav")
+        self.silence = pydub.AudioSegment.from_wav("resources/silence.wav")
+        self.click = pydub.AudioSegment.from_wav("resources/click.wav")
 
         # check if durations string provided is sufficient, use default if not
         if len(durations) != len(pattern):
@@ -143,8 +143,8 @@ class VocalExercise():
         self.exercise = exercise
         print('Exercise generated!')
 
-    def export(self):
-        self.exercise.export(self.name, format='wav')
+    def export(self, folder):
+        self.exercise.export(folder+self.name, format='wav')
 
     def play_track(self):
         self.exercise.export(self.name, format='wav')
@@ -175,8 +175,8 @@ def intialize_exercise(values):
     scale_type = values['scale_type']
     filename = values['filename']
     duration_multiplier = float(values['duration_multiplier'])
-    my_ex = VocalExercise('Notes', 'Chords', start_note_tup, end_note_tup, tempo, pattern, durations, scale_type,
-                          bin_d, filename, duration_multiplier)
+    my_ex = VocalExercise('resources/Notes', 'resources/Chords', start_note_tup, end_note_tup, tempo, pattern,
+                          durations, scale_type, bin_d, filename, duration_multiplier)
     my_ex.generate()
     return my_ex, my_ex.name.split('.')[0]
 
@@ -210,7 +210,7 @@ scale_pats = ('1,2,3,2,1', '1,2,3,4,5,4,3,2,1', '5,4,3,2,1', '1,3,5,8,5,3,1', '1
 
 #Rows within the layout
 lowest = [sg.Text('Lowest note: '), sg.Drop(notes, default_value='C', size=(3,12),  key='start_note'),
-          sg.Text('Octave:'), sg.Drop(octaves, size=(3,5), key='start_octave', default_value=3),
+          sg.Text('Octave:'), sg.Drop(octaves, size=(3,5), key='start_octave', default_value=2),
           sg.Text('Scale: '),
           sg.Drop(scales, size=(12,12), key='scale_type', default_value='Major')]
 highest = [sg.Text('Highest note:'), sg.Drop(notes, default_value='C', size=(3,12),  key='end_note'),
@@ -248,21 +248,18 @@ tit_controls = [sg.Text('3. Controls                                            
 
 
 def main():
-    # Main layout
     column1 = sg.Col([tit_main, lowest, highest, pattern, pattern2, durations, tempo,
                       [sg.Text('', font=('Helvetica', 6))],
                       tit_extra, extras2, extras, [sg.Text('', font=('Helvetica', 6))], tit_controls,
                       [sg.Column(controls)
                           , sg.Column([[sg.Output(size=(42, 7))]])], ])
 
-    form = sg.FlexForm('My first GUI', auto_size_text=True)
     layout = [[column1]]
     window = sg.Window('Vocal Exercise Maker v1.0', layout)
 
     playing = 0
     while True:
         event, values = window.read()
-
         if event == 'import':
             filename = values['import_path']
             with open(filename, 'r') as f:
@@ -270,14 +267,14 @@ def main():
             update_window(window, nvalues)
             print('Import successful')
         elif event == 'Export\n.json':
-            my_ex, filename = intialize_exercise(values)
-            with open(filename+'.json', 'w') as fp:
+            my_ex, filename = intialize_exercise(values) # not ideal to have to initializee everytime but no other way
+            with open('OUTPUT/' + filename + '.json', 'w') as fp:
                 json.dump(values, fp)
             print('Exported ' + filename + '.json')
         elif event == 'Export .wav\n& .json':
             my_ex, filename = intialize_exercise(values)
-            my_ex.export()
-            with open(filename+'.json', 'w') as fp:
+            my_ex.export('OUTPUT/')
+            with open('OUTPUT/' + filename+'.json', 'w') as fp:
                 json.dump(values, fp)
             print('Exported ' + filename + '.json and .wav')
         elif event == 'play_stop':
@@ -298,5 +295,5 @@ def main():
 
     window.close()
 
-main()
+#main()
 

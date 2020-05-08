@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['vocal_exercise_maker.py'],
+a = Analysis(['main.py'],
              pathex=['C:\\Users\\Nisha\\OneDrive\\Python\\vocal_exercise_program'],
              binaries=[],
              datas=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True )
+          console=False )
