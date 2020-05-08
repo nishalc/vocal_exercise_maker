@@ -1,3 +1,3 @@
-from vocal_exercise_maker import *
+from program_script import *
 
 main()
