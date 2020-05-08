@@ -5,7 +5,7 @@ LICENSE INFO: Currently I've not set a license on this code, you're free to use 
 
 Please checkout the video at .... for a walkthrough and demo.
 
-You can run the program using the .exe or the script 'main.py' if you prefer (though then you would need the relevant modules installed).
+You can run the program using the .exe or the script 'main.py' if you have Python installed (in which case you need the modules: 'Pydub', 'simpleaudio' and 'pysimplegui')
 
 ## Step by Step instructions
 1. Select your note range, these will the highest and lowest notes that appear in the track - not necessarily the starting and end notes
