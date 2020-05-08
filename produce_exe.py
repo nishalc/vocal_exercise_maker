@@ -8,9 +8,9 @@ PyInstaller.__main__.run([
    '--windowed'
 ])
 
-source = 'dist/vocal_exercise_maker.exe'
-destination = 'vocal_exercise_maker.exe'
+#source = 'dist/vocal_exercise_maker.exe'
+#destination = 'vocal_exercise_maker.exe'
 
-dest = shutil.move(source, destination)
+#dest = shutil.move(source, destination)
 
 
