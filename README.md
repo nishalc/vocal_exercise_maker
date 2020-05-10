@@ -3,7 +3,7 @@ This is a Python program which allows you to generate and customize vocal traini
 
 LICENSE INFO: Currently I've not set a license on this code, you're free to use the code of course :)
 
-Please checkout the video at .... for a walkthrough and demo.
+Please checkout the video at https://www.youtube.com/watch?v=tT5YHAJirp0 for a walkthrough and demo.
 
 You can run the program using the .exe or the script 'main.py' if you have Python installed (in which case you need the modules: 'Pydub', 'simpleaudio' and 'pysimplegui')
 
