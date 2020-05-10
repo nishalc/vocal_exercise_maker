@@ -262,10 +262,14 @@ def main():
         event, values = window.read()
         if event == 'import':
             filename = values['import_path']
-            with open(filename, 'r') as f:
-               nvalues = json.load(f)
-            update_window(window, nvalues)
-            print('Import successful')
+            if filename != '':
+                with open(filename, 'r') as f:
+                   nvalues = json.load(f)
+                update_window(window, nvalues)
+                print('Import successful')
+                values['import_path'] = ''
+            else:
+                print('Import aborted')
         elif event == 'Export\n.json':
             my_ex, filename = intialize_exercise(values) # not ideal to have to initializee everytime but no other way
             with open('OUTPUT/' + filename + '.json', 'w') as fp:
