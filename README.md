@@ -1,11 +1,11 @@
 # vocal_exercise_generator
-This is a Python program which allows you to generate and customize vocal training exercises. If you have any questions, queries or bugs please let me knoe!
+This is a Python program which allows you to generate and customize vocal training exercises. If you have any questions, queries or bugs please let me know!
 
 LICENSE INFO: Currently I've not set a license on this code, you're free to use the code of course :)
 
 Please checkout the video at https://www.youtube.com/watch?v=tT5YHAJirp0 for a walkthrough and demo.
 
-You can run the program using the .exe or the script 'main.py' if you have Python installed (in which case you need the modules: 'Pydub', 'simpleaudio' and 'pysimplegui')
+You can run the program using the vocal_exercise_maker.exe or the script 'main.py' if you have Python installed (in which case you need the modules: 'Pydub', 'simpleaudio' and 'pysimplegui')
 
 ## Step by Step instructions
 1. Select your note range, these will the highest and lowest notes that appear in the track - not necessarily the starting and end notes
