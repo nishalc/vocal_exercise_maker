@@ -5,6 +5,9 @@ LICENSE INFO: Currently I've not set a license on this code, you're free to use 
 
 Please checkout the video at https://www.youtube.com/watch?v=tT5YHAJirp0 for a walkthrough and demo.
 
+![SNAG-0767](https://user-images.githubusercontent.com/46163555/80380522-b2c09600-886d-11ea-92cc-e88e14e0917c.jpg)
+![ui](https://user-images.githubusercontent.com/48350767/84436026-b09e7500-ac2a-11ea-9de4-04bc854f7114.png)
+
 You can run the program using the vocal_exercise_maker.exe or the script 'main.py' if you have Python installed (in which case you need the modules: 'Pydub', 'simpleaudio' and 'pysimplegui')
 
 ## Step by Step instructions
