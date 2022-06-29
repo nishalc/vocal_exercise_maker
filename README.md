@@ -11,7 +11,7 @@ You can run the program using the vocal_exercise_maker.exe or the script 'main.p
 
 ## Step by Step instructions
 1. Select your note range, these will the highest and lowest notes that appear in the track - not necessarily the starting and end notes
-2. Pick a scale and pattern, there are a bunch of presets, or you can select your own - just make sure to check 'custom' 
+2. Pick a scale and pattern, there are a bunch of presets, or you can select your own - just make sure to check 'custom'. The numbers represent the position in the scale, 1 3 5 is the 1st, 3rd, and 5th (presuming you have the major scale selected). 
 3. Choose durations, here 1 means 1 beat at your selected tempo. By default the program chooses 1 for the whole pattern, make sure your durations match the number of notes in the pattern. The multiplier can be used to quickly change all notes to 0.5 for example. 
 4. Select extra options:
 - Repeat and reverse means upon reaching the last note it will return back to the first in reverse.
@@ -20,7 +20,7 @@ You can run the program using the vocal_exercise_maker.exe or the script 'main.p
 
 ## Notes / Fun Facts
 1. The notes are limited to 8 seconds, so any single note within a pattern cannot be longer than this (just repeat it if you really want it).
-2. You can go BACKWARDS and into the next octave on a scale pattern. Eg 0 will be a step down from 1, 9 is the 2nd on the octave above.
+2. You can go BACKWARDS into the previous octave and forward into the next octave on a scale pattern. Eg 0 will be a step down from 1, 9 is the 2nd on the octave above. 
 
 ## Future ideas / thoughts
 1. Currently files are quite big as I need to use .wav files, in the future it may be possible to use .mp3, but only if the program is made on a different platform perhaps
