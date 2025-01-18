@@ -147,7 +147,7 @@ class VocalExercise():
             if i != (len(self.chord_ints) - 1):  # if this isn't the last iteration
                 exercise += (self.chords[i][:self.beat_duration] * cbin)
             x+=1
-            
+
         if self.bin_d['click_track']:
             exercise = exercise.overlay(self.click[:self.beat_duration], loop=True)
 
@@ -186,7 +186,7 @@ def intialize_exercise(values):
     scale_type = values['scale_type']
     filename = values['filename']
     duration_multiplier = float(values['duration_multiplier'])
-    my_ex = VocalExercise('resources/Notes', 'resources/Chords', start_note_tup, end_note_tup, tempo, pattern,
+    my_ex = VocalExercise(start_note_tup, end_note_tup, tempo, pattern,
                           durations, scale_type, bin_d, filename, duration_multiplier)
     my_ex.generate()
     return my_ex, my_ex.name.split('.')[0]
