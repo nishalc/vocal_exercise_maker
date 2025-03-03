@@ -215,9 +215,9 @@ def update_window(window, values):
 #Inputs for dropdown menus etc
 sg.theme('DarkBlue1')
 scales = ('Major', 'Pentatonic', 'minor')
-notes = ('A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#')
+notes = ('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
 octaves = (2,3,4,5,6)
-scale_pats = ('1,2,3,2,1', '1,2,3,4,5,4,3,2,1', '5,4,3,2,1', '1,3,5,8,5,3,1', '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1')
+scale_pats = ('1,2,3,2,1', '1,2,3,4,5,4,3,2,1', '5,4,3,2,1', '1,3,5,8,5,3,1', '1,3,5,8,8,8,8,5,3,1', '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1')
 
 #Rows within the layout
 lowest = [sg.Text('Lowest note: '), sg.Drop(notes, default_value='C', size=(3,12),  key='start_note'),
