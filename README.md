@@ -12,7 +12,7 @@ You can run the program using the vocal_exercise_maker.exe or the script 'main.p
 ## Step by Step instructions
 1. Select your note range, these will the highest and lowest notes that appear in the track - not necessarily the starting and end notes
 2. Pick a scale and pattern, there are a bunch of presets, or you can select your own - just make sure to check 'custom'. The numbers represent the position in the scale, 1 3 5 is the 1st, 3rd, and 5th (presuming you have the major scale selected). 
-3. Choose durations, here 1 means 1 beat at your selected tempo. By default the program chooses 1 for the whole pattern, make sure your durations match the number of notes in the pattern. The multiplier can be used to quickly change all notes to 0.5 for example. 
+3. Choose durations, here 1 means 1 quarter note at your selected tempo. By default the program chooses 1 for the whole pattern, make sure your durations match the number of notes in the pattern if you want to use varying durations. If you want to have every note the same duration, feel free to leave this as default and use the multiplier. The multiplier multiplies all note durations by it´s designated number, e.g 0.5 will make all notes eight beats.  
 4. Select extra options:
 - Repeat and reverse means upon reaching the last note it will return back to the first in reverse.
 - Pause between is adding an extra pause between each pattern, useful if you have disabled the chords in track. 
