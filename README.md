@@ -18,6 +18,12 @@ You can run the program using the vocal_exercise_maker.exe or the script 'main.p
 - Pause between is adding an extra pause between each pattern, useful if you have disabled the chords in track. 
 5. Controls : you can export the parameters using Export .json, this can then be read by the program to preselect all your parameters. Use play to test your exercise and make sure you are happy! Export .wav and .json will produce both the audio file and a parameter file in the OUTPUT folder. 
 
+## What each button does
+Play: will play the current settings for you to hear before you export, creates a temporary file to play
+Import .json: you can export the "recipe" for a vocal exercise as a .json, this import function lets you read in the parameters from a prior .json
+Export .json, export the current settings selected on the program to a .json, the name is automatically generated
+Export .wav and .json, will produce the current settings as a .wav and .json with the same name - use when you are happy with your file
+
 ## Notes / Fun Facts
 1. The notes are limited to 8 seconds, so any single note within a pattern cannot be longer than this (just repeat it if you really want it).
 2. You can go BACKWARDS into the previous octave and forward into the next octave on a scale pattern. Eg 0 will be a step down from 1, 9 is the 2nd on the octave above. 
