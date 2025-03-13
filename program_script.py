@@ -120,10 +120,10 @@ class VocalExercise():
         end_str = end_note_tup[0] + str(end_note_tup[1])
         pattern_str = ''.join([str(i) for i in pattern])
         if self.bin_d["ascend_bin"]:
-            self.name = filename + '_' + pattern_str + scale_type + '_' + start_str + '-' + end_str + '_' \
+            self.name = filename + '_' + pattern_str + "_" + scale_type + '_' + start_str + '-' + end_str + '_' \
                         + str(tempo) + 'bpm.wav'
         else:
-            self.name = filename + '_' + pattern_str + scale_type + '_' + end_str + '-' + start_str + '_' \
+            self.name = filename + '_' + pattern_str + "_" + scale_type + '_' + end_str + '-' + start_str + '_' \
                         + str(tempo) + 'bpm.wav'
 
 
