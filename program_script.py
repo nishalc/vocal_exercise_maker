@@ -101,7 +101,7 @@ class VocalExercise():
             if duration_multiplier != 1:
                 durations = [float(i) * duration_multiplier for i in durations]
 
-        self.total_pattern_duration = sum(durations)
+        self.total_pattern_duration = sum(float(i) for i in durations)
 
         # check maximum note duration in selected durations
         self.beat_duration = ((60 / tempo) * 1000)
@@ -223,7 +223,7 @@ notes = ('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
 octaves = (2,3,4,5,6)
 scale_pats = ('1,2,3,2,1', '1,2,3,4,5,4,3,2,1', '5,4,3,2,1', '1,3,5,8,5,3,1', 
               '1,3,5,8,8,8,8,5,3,1', '1,3,5,8,10,12,11,9,7,5,4,2,1', 
-              '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1')
+              '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1', '1,5,1', '1,8,1')
 
 #Rows within the layout
 lowest = [sg.Text('Lowest note: '), sg.Drop(notes, default_value='C', size=(3,12),  key='start_note'),
