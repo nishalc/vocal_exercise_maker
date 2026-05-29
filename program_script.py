@@ -2,7 +2,7 @@ import FreeSimpleGUI as sg
 import json
 import os
 import pydub
-import winsound as ws
+import winsound
 import math
 
 #####################           VOCAL EXERCISE CLASS FUNCTIONS                ########################################
@@ -13,7 +13,7 @@ def note_to_number(note):
     pitch = note[0]
     octave = note[1]
     add_on = (int(octave) - 2) * 12
-    notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+    notes = ['C', 'C# / Db', 'D', 'D# / Eb', 'E', 'F', 'F# / Gb', 'G', 'G# / Ab', 'A', 'A# / Bb', 'B']
     return notes.index(pitch) + add_on  # returns the 0 indexed number!
 
 # gives you the set of filepaths which are needed, based on required start and end notes
@@ -170,13 +170,11 @@ class VocalExercise():
 
     def play_track(self):
         self.exercise.export('temp_to_play.wav', format='wav')
-        wav_obj = winsound.PlaySound('temp_to_play.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-        play_obj = wav_obj.play()
-        self.play_obj = play_obj
-        #play_obj.wait_done()
+        winsound.PlaySound('temp_to_play.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
+
 
     def stop_track(self):
-        self.play_obj.stop()
+        winsound.PlaySound(None, winsound.SND_PURGE)
 
 
    #######################           FUNCTIONS FOR UI         #####################################
@@ -225,33 +223,33 @@ def update_window(window, values):
 
 #Inputs for dropdown menus etc
 sg.theme('DarkBlue1')
-scales = ('Major', 'Pentatonic', 'minor')
-notes = ('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
+scales = ('Major', 'minor', 'Major Pentatonic', "minor Pentatonic")
+notes = ('C', 'C# / Db', 'D', 'D# / Eb', 'E', 'F', 'F# / Gb', 'G', 'G# / Ab', 'A', 'A# / Bb', 'B')
 octaves = (2,3,4,5,6)
-scale_pats = ('1,2,3,4,5,4,3,2,1', '1,2,3,2,1', '1,3,5,3,1', '1,5,1', '1,8,1'
+scale_pats = ('1,2,3,4,5,4,3,2,1', '1,2,3,2,1', '1,3,5,3,1', '1,5,1', '1,8,1',
               '1,3,5,8,5,3,1', '1,3,5,8,8,8,8,5,3,1', 
-              '5,4,3,2,1', '8,5,3,1' 
+              '5,4,3,2,1', '8,5,3,1', 
               '1,3,5,8,10,12,11,9,7,5,4,2,1', 
               '1,2,3,4,5,6,7,8,7,6,5,4,3,2,1', 
               '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1')
 
 #Rows within the layout
-lowest = [sg.Text('Lowest note: '), sg.Drop(notes, default_value='C', size=(3,12),  key='start_note'),
+lowest = [sg.Text('Lowest note: '), sg.Drop(notes, default_value='C', size=(6,12),  key='start_note'),
           sg.Text('Octave:'), sg.Drop(octaves, size=(3,5), key='start_octave', default_value=2),
           sg.Text('Scale: '),
           sg.Drop(scales, size=(12,12), key='scale_type', default_value='Major')]
-highest = [sg.Text('Highest note:'), sg.Drop(notes, default_value='C', size=(3,12),  key='end_note'),
+highest = [sg.Text('Highest note:'), sg.Drop(notes, default_value='C', size=(6,12),  key='end_note'),
           sg.Text('Octave:'), sg.Drop(octaves, size=(3,5), key='end_octave', default_value=4)]
 tempo = [sg.Text('Tempo (bpm):  '), sg.Input(70, size=(5,5), key='tempo')
     , sg.Text(' '*8+'Filename:'), sg.Input('', size=(20,5), key='filename')]
 pattern = [sg.Text('Scale pattern:  '), sg.Radio('Preset  ','radio1', default=True, key='preset_pat_bin'),
-           sg.Drop(scale_pats, size=(37,12), key='preset_pat', default_value='1,2,3,2,1'),
+           sg.Drop(scale_pats, size=(37,12), key='preset_pat', default_value='1,2,3,4,5,4,3,2,1'),
             ]
 pattern2 = [ sg.Text(' '*22), sg.Radio('Custom', 'radio1', key='custom_pat_bin'),
              sg.InputText(size=(39,20), key='custom_pat'),
             ]
 
-durations = [sg.Text('Note durations:'), sg.InputText('1,1,1' ,size=(34,12), key='durations'),
+durations = [sg.Text('Note durations:'), sg.InputText('' ,size=(34,12), key='durations'),
              sg.Text('Mulitplier:'), sg.Input('1', key='duration_multiplier', size=(4,3))]
 
 extras = [sg.Checkbox('Click track', default=True, key='click_track'), sg.Checkbox('Chords',
