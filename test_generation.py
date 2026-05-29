@@ -15,16 +15,15 @@ pause_bin = False
 duration_multiplier = 0.5
 note_steps = 1
 tempo = 70
-scale_type = 'Major'
+scale_type = 'minor Pentatonic' #'Major'
 filename = 'TEST'
 
 #pattern = [1,0, -1, -2, -3, -4, -5, -6, -7]
 #pattern = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 #pattern = [-4,-3,-2,-1,0,1,2,3,4,5]
 #durations = [1,1,1,1,1,1,1,1,2,2,2]
-pattern = [1,3,5,8,5,3,1]
-durations = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
-
+pattern = [1,2,3,4, 5,4,3,2, 1]
+durations = [1*9]
 
 bin_d = {'click_track':click_track, 'reverse_bin':reverse_bin, 'ascend_bin':ascend_bin, 'chords_bin':chords_bin,
          'note_steps':note_steps, 'pause_bin':pause_bin}

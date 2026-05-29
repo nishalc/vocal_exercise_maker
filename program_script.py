@@ -1,8 +1,8 @@
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 import json
 import os
 import pydub
-import simpleaudio as sa
+import winsound as ws
 import math
 
 #####################           VOCAL EXERCISE CLASS FUNCTIONS                ########################################
@@ -45,14 +45,21 @@ def note_chord_paths(start_note, end_note):
 # Each inner list is a sequence of notes
 def pattern_to_lists(length, pattern, reverse_bin, ascend_bin, scale_type, note_steps):
     #translate number in a scale to semitone number
-    scale_dict = {'Major': {-7: -14, -6: -12 ,-5: -10 ,-4: -8,-3: -7, -2: -5 , -1: -3, 0: -1, 1: 0, 2: 2, 3: 4, 4: 5, 5: 7,
-                        6: 9, 7: 11, 8: 12, 9: 14, 10: 16, 11: 17, 12: 19, 13: 21, 14: 23, 15: 24, 16:26, 17:28, 18:29,
-                            19:31, 20:33, 21:35, 22:36},
-                  'minor': {-6: -12, -5: -10, -4: -7, -3: -7, -2: -5, -1: -4, 0: -2, 1: 0, 2: 2, 3: 3, 4: 5,
-                            5: 7, 6: 8, 7: 10, 8: 12, 9: 14, 10: 15, 11: 17, 12: 19, 13: 20, 14: 22, 15: 24,
-                            16:26, 17:27, 18:29, 19:31, 20:32, 21:34, 22:36},
-                  'Pentatonic': {-5:-14, -4:-12 ,-3:-10, -2:-8 ,-1:-5 ,0: -3,1: 0, 2: 2, 3: 4, 4: 7, 5: 9, 6: 12,
-                                 7:14, 8:16, 9:19, 10:21, 11:24}}
+    scale_dict = {
+        'Major': {-7: -14, -6: -12 ,-5: -10 ,-4: -8,-3: -7, -2: -5 , -1: -3, 0: -1, 1: 0, 2: 2, 3: 4, 4: 5, 5: 7,
+                6: 9, 7: 11, 8: 12, 9: 14, 10: 16, 11: 17, 12: 19, 13: 21, 14: 23, 15: 24, 16:26, 17:28, 18:29,
+                19:31, 20:33, 21:35, 22:36},
+        'minor': {-6: -12, -5: -10, -4: -7, -3: -7, -2: -5, -1: -4, 0: -2, 1: 0, 2: 2, 3: 3, 4: 5,
+                5: 7, 6: 8, 7: 10, 8: 12, 9: 14, 10: 15, 11: 17, 12: 19, 13: 20, 14: 22, 15: 24,
+                16:26, 17:27, 18:29, 19:31, 20:32, 21:34, 22:36},
+        'Major Pentatonic': {-5:-14, -4:-12 ,-3:-10, -2:-8 ,-1:-5 ,0: -3,1: 0, 2: 2, 3: 4, 4: 7, 5: 9, 6: 12,
+                                 7:14, 8:16, 9:19, 10:21, 11:24},
+       'minor Pentatonic': {
+            -5: -14, -4: -12, -3: -9, -2: -7, -1: -5, 0: -2, 
+            1: 0, 2: 3, 3: 5, 4: 7, 5: 10, 6: 12, 
+            7: 15, 8: 17, 9: 19, 10: 22, 11: 24
+        }
+        }
     pattern = [scale_dict[scale_type][int(i)] for i in pattern] #
 
     chord_ints =  [j for j in range(length)][::note_steps]
@@ -163,7 +170,7 @@ class VocalExercise():
 
     def play_track(self):
         self.exercise.export('temp_to_play.wav', format='wav')
-        wav_obj = sa.WaveObject.from_wave_file('temp_to_play.wav')
+        wav_obj = winsound.PlaySound('temp_to_play.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
         play_obj = wav_obj.play()
         self.play_obj = play_obj
         #play_obj.wait_done()
@@ -221,9 +228,12 @@ sg.theme('DarkBlue1')
 scales = ('Major', 'Pentatonic', 'minor')
 notes = ('C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B')
 octaves = (2,3,4,5,6)
-scale_pats = ('1,2,3,2,1', '1,2,3,4,5,4,3,2,1', '5,4,3,2,1', '1,3,5,8,5,3,1', 
-              '1,3,5,8,8,8,8,5,3,1', '1,3,5,8,10,12,11,9,7,5,4,2,1', 
-              '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1', '1,5,1', '1,8,1')
+scale_pats = ('1,2,3,4,5,4,3,2,1', '1,2,3,2,1', '1,3,5,3,1', '1,5,1', '1,8,1'
+              '1,3,5,8,5,3,1', '1,3,5,8,8,8,8,5,3,1', 
+              '5,4,3,2,1', '8,5,3,1' 
+              '1,3,5,8,10,12,11,9,7,5,4,2,1', 
+              '1,2,3,4,5,6,7,8,7,6,5,4,3,2,1', 
+              '1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1')
 
 #Rows within the layout
 lowest = [sg.Text('Lowest note: '), sg.Drop(notes, default_value='C', size=(3,12),  key='start_note'),
