@@ -35,6 +35,8 @@ def note_chord_paths(start_note, end_note):
     for root, directory, files in os.walk("resources/Chords"):
         for file in files:
             chords.append(os.path.join(root, file))
+    notes.sort()
+    chords.sort()
     notes = notes[start_index:end_index + 1]
     chords = chords[start_index:end_index + 1]
     return notes, chords
