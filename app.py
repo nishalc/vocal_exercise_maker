@@ -19,6 +19,7 @@ from presets import PRESETS
 
 # --- Footer credits ----------------------------------------------------------
 AUTHOR_NAME = "Nishal Chandarana"
+AUTHOR_EMAIL = "nishalc@outlook.com"  # set to "" to hide the email link
 LINKS = {
     #"Website": "https://your-site.com",
     "Instagram": "https://instagram.com/nish_rana_music",
@@ -292,7 +293,10 @@ def main():
 
     # ---- Footer / credits ---------------------------------------------------
     st.divider()
-    link_md = " · ".join(f"[{name}]({url})" for name, url in LINKS.items() if url)
+    items = list(LINKS.items())
+    if AUTHOR_EMAIL:
+        items.append(("Email me", f"mailto:{AUTHOR_EMAIL}"))
+    link_md = " · ".join(f"[{name}]({url})" for name, url in items if url)
     st.caption(f"Made by {AUTHOR_NAME}")
     if link_md:
         st.caption(link_md)
