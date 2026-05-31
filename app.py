@@ -27,6 +27,7 @@ LINKS = {
     #"Spotify": "https://open.spotify.com/artist/your_id",
     "Buy me a coffee": "https://ko-fi.com/nish_rana",
 }
+SUPPORT_URL = "https://ko-fi.com/nish_rana"  # set to "" to hide the support line
 
 # --- static option lists (mirror program_script.py) --------------------------
 SCALES = ("Major", "minor", "Major Pentatonic", "minor Pentatonic")
@@ -255,6 +256,8 @@ def main():
 
     # ---- Outputs --------------------------------------------------------
     st.header("Output")
+    if SUPPORT_URL:
+        st.caption(f"If this tool is useful to you, you can [support it here]({SUPPORT_URL}). ☕")
 
     if st.button("Generate track", type="primary"):
         values = collect_values()
