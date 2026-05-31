@@ -1,0 +1,5 @@
+streamlit
+pydub
+# pydub needs the stdlib `audioop` module, which was removed in Python 3.13.
+# This backport supplies it only when running on 3.13+ (harmless otherwise).
+audioop-lts; python_version >= "3.13"

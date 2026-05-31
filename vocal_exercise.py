@@ -124,11 +124,15 @@ class VocalExercise():
         start_str = start_note_tup[0] + str(start_note_tup[1])
         end_str = end_note_tup[0] + str(end_note_tup[1])
         pattern_str = ''.join([str(i) for i in pattern])
+        if filename == "":
+            filename_ = ""
+        else:
+            filename_ = filename + "_" 
         if self.bin_d["ascend_bin"]:
-            self.name = filename + '_' + pattern_str + "_" + scale_type + '_' + start_str + '-' + end_str + '_' \
+            self.name = filename_ + pattern_str + "_" + scale_type + '_' + start_str + '-' + end_str + '_' \
                         + str(tempo) + 'bpm.wav'
         else:
-            self.name = filename + '_' + pattern_str + "_" + scale_type + '_' + end_str + '-' + start_str + '_' \
+            self.name = filename_ + pattern_str + "_" + scale_type + '_' + end_str + '-' + start_str + '_' \
                         + str(tempo) + 'bpm.wav'
 
 
@@ -169,7 +173,6 @@ class VocalExercise():
     def play_track(self):
         self.exercise.export('temp_to_play.wav', format='wav')
         winsound.PlaySound('temp_to_play.wav', winsound.SND_FILENAME | winsound.SND_ASYNC)
-
 
     def stop_track(self):
         winsound.PlaySound(None, winsound.SND_PURGE)
